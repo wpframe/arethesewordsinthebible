@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>bible word checker</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-900 text-gray-200 flex flex-col items-center justify-center h-screen">
+        <header class="mb-10 text-center">
+            <h1 class="text-5xl font-bold">are these words in the bible? ✝️📖</h1>
+            <p class="text-xl mt-2">check how many words in a sentence are in the bible. click <a href="https://knowyourmeme.com/memes/none-of-these-words-are-in-the-bible" class="underline hover:text-blue-400">here</a> for context</p>
+        </header>
+        <div class="container bg-gray-800 p-10 rounded-xl shadow-lg space-y-6 w-9/10 sm:w-4/5 md:w-2/3 lg:w-1/2 xl:w-1/2 max-w-3xl">
+            <textarea id="textInput" placeholder="your words..." class="w-full h-24 p-3 border border-gray-600 bg-gray-700 text-gray-200 rounded-md focus:ring focus:ring-blue-500 resize-none"></textarea>
+            <button onclick="countWords()" class="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">check</button>
+            <div id="output" class="text-left max-h-80 overflow-y-auto"></div>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
