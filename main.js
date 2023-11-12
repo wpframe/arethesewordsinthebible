@@ -1,4 +1,8 @@
+const OUTPUT = document.getElementById("output");
+const INPUT = document.getElementById("textInput");
+
 let wordDatabase = {};
+
 
 fetch('words.json')
     .then(response => {
@@ -14,10 +18,11 @@ fetch('words.json')
         console.error("Error:", error);
     });
 
-function countWords() {
-    const text = document.getElementById("textInput").value;
-    const words = Array.from(new Set(text.toLowerCase().split(/\s+/).map(word => word.replace(/^[^\w]+|[^\w]+$/g, '')).filter(Boolean)));
 
+
+function countWords() {
+    const text = INPUT.value;
+    const words = Array.from(new Set(text.toLowerCase().split(/\s+/).map(word => word.replace(/^[^\w]+|[^\w]+$/g, '')).filter(Boolean)));
     const sortedWords = sortByLeastOccurrence(words);
     displayWords(sortedWords);
 }
@@ -27,23 +32,26 @@ function sortByLeastOccurrence(words) {
 }
 
 function displayWords(words) {
-    const output = document.getElementById("output");
-    output.innerHTML = "";
+    OUTPUT.innerHTML = "";
+
+    const WORD_LIST = []
 
     let foundInBibleCount = 0;
 
     for (let word of words) {
+
         const count = wordDatabase[word] || 0;
+
         if (count > 0) {
             foundInBibleCount++;
-        }
-        if (count === 0) {
-            output.innerHTML += `<span style="color: red; font-weight: bold;">${word}: ${count} times</span><br>`;
+            WORD_LIST.push(`${word}: ${count} times<br>`);
         } else {
-            output.innerHTML += `${word}: ${count} times<br>`;
+            WORD_LIST.push(`<span style="color: red; font-weight: bold;">${word}: ${count} times</span><br>`)
         }
     }
 
     const percentage = (foundInBibleCount / words.length) * 100;
-    output.innerHTML += `<br><strong>total percentage of words in the bible:</strong> ${percentage.toFixed(2)}%`;
+    WORD_LIST.push(`<br><strong>total percentage of words in the bible:</strong> ${percentage.toFixed(2)}%`);
+
+    OUTPUT.insertAdjacentHTML('beforeend', WORD_LIST.join(''));
 }
